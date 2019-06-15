@@ -37,6 +37,12 @@ Connect to container:
 lxc-attach -n PLEX
 ```
 
+For a direct access to the PLEX server container, setup a password for root:
+
+```
+passwrd
+```
+
 Install prerequisites:
 
 ```
