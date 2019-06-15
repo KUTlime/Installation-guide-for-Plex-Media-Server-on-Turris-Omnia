@@ -15,7 +15,7 @@ The installation consists of these steps:
 
 Connect to your Turrins Omnia router by SSH and create the LXC container. **[Official Manual](https://www.turris.cz/doc/en/howto/lxc)**
 ```
-lxc-create -t download -n Debian
+lxc-create -t download -n PLEX
 ```
 
 - Distribution: **Debian**
@@ -28,13 +28,13 @@ lxc-create -t download -n Debian
 Start the container from LuCI or by executing this command:
 
 ```
-lxc-start -n Debian
+lxc-start -n PLEX
 ```
 
 Connect to container:
 
 ```
-lxc-attach -n Debian
+lxc-attach -n PLEX
 ```
 
 Install prerequisites:
@@ -60,10 +60,10 @@ nano /etc/hosts
 
 Reboot the LXC container from LuCI interface and attach to the container again.
 
-Add this line (for `Debian` as hostname):
+Add this line (for `PLEX` as hostname):
 
 ```
-127.0.1.1   Debian
+127.0.1.1   PLEX
 ```
 
 Install packages:
