@@ -37,12 +37,6 @@ Connect to container:
 lxc-attach -n PLEX
 ```
 
-For a direct access to the PLEX server container, setup a password for root:
-
-```
-passwrd
-```
-
 Install prerequisites:
 
 ```
@@ -51,7 +45,7 @@ apt-get install sudo
 apt-get install nano
 ```
 
-Change hostname (for eg. `Debian`):
+Change hostname (for eg. `PLEX`):
 
 ```
 nano /etc/hostname
@@ -63,7 +57,6 @@ Set new hostname to localhost:
 nano /etc/hosts
 ```
 
-Reboot the LXC container from LuCI interface and attach to the container again.
 
 Add this line (for `PLEX` as hostname):
 
@@ -77,24 +70,30 @@ Install packages:
 apt-get install git-core openssh-server rsync sudo fakeroot cifs-utils -y
 ```
 
-Following steps are not really necessary and you can continue to No. 3.
-
-Create your user (eg. `petr`):
+Reboot the LXC container from LuCI interface or execute this command:
 
 ```
-adduser petr
+lxc-stop -n PLEX -r
+```
+
+Following steps are not really necessary and you can continue to No. 3 if you don't need a direct access to the container. Actually, direct access only complicates mounting process later on.
+
+Create your user (eg. `johndoe`):
+
+```
+adduser johndoe
 ```
 
 Run `visudo` commnad and add:
 
 ```
-petr ALL=(ALL:ALL) ALL
+johndoe ALL=(ALL:ALL) ALL
 ```
 
 Log to your user using SSH or sudo:
 
 ```
-sudo su petr
+sudo su johndoe
 ```
 
 ## 3. Install Plex Media Server
@@ -102,16 +101,37 @@ sudo su petr
 Add repository
 
 ```
-echo "deb http://dl.bintray.com/tproenca/pmsarm7 jessie main" | sudo tee /etc/apt/sources.list.d/pms.list
+echo "deb http://dl.bintray.com/tproenca/pmsarm7 jessie main" | tee /etc/apt/sources.list.d/pms.list
 ```
 
+or 
+
+```
+echo "deb http://dl.bintray.com/tproenca/pmsarm7 jessie main" | sudo tee /etc/apt/sources.list.d/pms.list
+```
+if you are under different account. Same analogy is used with other commands.
+
+
 Fix for automatic start:
+
+```
+touch /usr/lib/plexmediaserver/start.sh
+```
+
+or
 
 ```
 sudo touch /usr/lib/plexmediaserver/start.sh
 ```
 
 Install:
+
+```
+apt-get update
+apt-get install plexmediaserver
+```
+
+or
 
 ```
 sudo apt-get update
@@ -129,13 +149,13 @@ id -u plex
 Create empty folder for mount:
 
 ```
-mkdir -p /media/video
+mkdir -p /media/plex
 ```
 
 Add mount to `/etc/fstab` (set `uid` from `plex` user)
 
 ```
-//192.168.1.1/nas /media/video cifs uid=107,gid=1000,iocharset=utf8 0 0
+//192.168.1.1/nas /media/plex cifs uid=107,gid=1000,iocharset=utf8 0 0
 ```
 (replace with appropiate paths)
 
@@ -146,7 +166,7 @@ Execute following command:
 mount -all
 ```
 
-If you are not able to mount, try execute this:
+If you are not able to mount or you want an automatic mount without any password prompt, try execute this:
 ```
 nano /etc/.cifspasswd
 ```
@@ -161,7 +181,7 @@ Alternativelly, you can create the `/etc/.cifspasswd` file by WinSCP.
 
 Replace the previous `/etc/fstab` entry to this:
 ```
-//192.168.1.1/nas /media/video cifs uid=107,gid=1000,credentials=/etc/.cifspasswd,iocharset=utf8 0 0
+//192.168.1.1/nas /media/plex cifs uid=107,gid=1000,credentials=/etc/.cifspasswd,iocharset=utf8 0 0
 ```
 
 ## 5. PLEX server configuration
@@ -173,10 +193,20 @@ systemctl status plexmediaserver
 
 If Plex media server isn’t running, you can start it with:
 ```
+systemctl start plexmediaserver
+```
+
+or
+
+```
 sudo systemctl start plexmediaserver
 ```
 
 Once the PLEX server is running, visit the webpage http://192.168.1.100:32400/manage (substitude the IP with the IP of the LXC container) and create the libraries.
+
+Congratulation, you have your PLEX media server up and running on Turris Omnia device.
+
+## Links
 
 [For more about CIFS mount](http://midactstech.blogspot.cz/2013/09/how-to-mount-windows-cifs-share-on_18.html)<br>
 [How to Install Plex Media Server on Ubuntu](https://www.linuxbabe.com/ubuntu/install-plex-media-server-ubuntu-18-04)
