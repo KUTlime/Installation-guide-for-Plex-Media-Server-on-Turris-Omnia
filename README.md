@@ -47,7 +47,6 @@ Install prerequisites:
 
 ```
 apt-get update
-apt-get upgrade
 apt-get install sudo
 apt-get install nano
 ```
