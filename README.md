@@ -6,12 +6,17 @@
 
 The installation consists of these steps:
 
-1. Create Debian LXC container
-2. Simple Debian configuration
-3. Install Plex Media Server
-4. Connect to CIFS
+1. Configure NAS
+2. Create Debian LXC container
+3. Simple Debian configuration
+4. Install Plex Media Server
+5. Connect to CIFS
 
-## 1. Create Debian LXC container
+## 1. Configure NAS
+
+Follow [the official tutorial](https://wiki.turris.cz/doc/en/howto/nas) to configure NAS at your Turris Omnia. This tutorial is using NAS path configuration as `\\TURRIS\nas` or using IP form `\\192.168.1.1\nas`.
+
+## 2. Create Debian LXC container
 
 Connect to your Turris Omnia router by SSH and create the LXC container. **[Official Manual](https://www.turris.cz/doc/en/howto/lxc)**
 
@@ -23,7 +28,7 @@ lxc-create -t download -n PLEX
 - Release: **Stretch**
 - Architecture: **armv7l** (ending 7l is seven with the lower case L, NOT seventy-one)
 
-## 2. Simple Debian configuration
+## 3. Simple Debian configuration
 
 Start the container from LuCI or by executing this command:
 
@@ -72,7 +77,7 @@ Reboot the LXC container from LuCI interface or execute this command:
 lxc-stop -n PLEX -r
 ```
 
-## 3. Install Plex Media Server
+## 4. Install Plex Media Server
 
 Connect to container again. From a console attached to Turris, you can execute command:
 
@@ -100,7 +105,7 @@ Fix for automatic start:
 touch /usr/lib/plexmediaserver/start.sh
 ```
 
-## 4. Connect to CIFS
+## 5. Connect to CIFS
 
 Write down `plex` user id (`uid`):
 
@@ -170,7 +175,7 @@ cd /media/plex  && ls
 
 You should see your files or/and directories for PLEX.
 
-## 5. PLEX server configuration
+## 6. PLEX server configuration
 
 Find IP address of your LXC container and write down this IP:
 
