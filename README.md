@@ -97,6 +97,7 @@ id -u plex
 ```
 
 Create empty folder for mount:
+
 ```
 mkdir -p /media/plex
 ```
@@ -107,8 +108,14 @@ nano /etc/fstab
 ```
 and write the following line (_set `uid` from `plex` user and replace paths with appropiate paths from your enviroment_):
 
-```
+```bash
 //192.168.1.1/nas /media/plex cifs uid=999,gid=1000,credentials=/etc/.cifspasswd,iocharset=utf8 0 0
+```
+
+For Turris Omnia OS 5.1.x with Samba4, use this command:
+
+```
+//192.168.1.1/nas /media/plex cifs uid=999,vers=2.0,gid=1000,credentials=/etc/.cifspasswd,iocharset=utf8 0 0
 ```
 
 For an automatic mount without any password prompt, try execute this:
@@ -141,7 +148,6 @@ Verify the mount by:
 cd /media/plex  && ls
 ```
 You should see your files or/and directories for PLEX.
-
 
 ## 5. PLEX server configuration
 
