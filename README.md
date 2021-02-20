@@ -90,13 +90,13 @@ Go to [PLEX Server download page](https://www.plex.tv/media-server-downloads/) a
 ![Preview](https://raw.githubusercontent.com/KUTlime/Installation-guide-for-Plex-Media-Server-on-Turris-Omnia/master/OfficialRepo.png)
 
 ```bash
-wget https://downloads.plex.tv/plex-media-server-new/1.20.4.3517-ab5e1197c/debian/plexmediaserver_1.20.4.3517-ab5e1197c_armhf.deb
+wget https://downloads.plex.tv/plex-media-server-new/1.21.3.4046-3c1c83ba4/debian/plexmediaserver_1.21.3.4046-3c1c83ba4_armhf.deb
 ```
 
 Now, install the downloaded package. If you've downloaded some other package, replace the package name accordingly.
 
 ```bash
-dpkg -i plexmediaserver_1.20.4.3517-ab5e1197c_armhf.deb
+dpkg -i plexmediaserver_1.21.3.4046-3c1c83ba4_armhf.deb
 ```
 
 Fix for automatic start:
