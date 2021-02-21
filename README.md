@@ -203,9 +203,35 @@ Once the PLEX server is running, visit the webpage http://192.168.1.100:32400/ma
 
 Congratulation, you have your PLEX media server up and running on Turris Omnia device.
 
+## Enable repository updating
+
+To enable an easy update of Plex media server, you have to add Plex official repository to your container. Start with installing prerequisites with:
+
+```bash
+apt-get install curl apt-transport-https
+```
+
+After that, execute:
+```bash
+echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
+```
+
+and finish the setup with:
+
+```bash
+curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo apt-key add -
+```
+
+After, you will be able to update your Plex media server just by running
+
+```bash
+apt-get update
+```
+
 ## Links & Credits
 
-[READ ME FIRST: About Server ARMv7 and ARMv8 Ubuntu / Debian](https://forums.plex.tv/t/read-me-first-about-server-armv7-and-armv8-ubuntu-debian/226567)<br>
-[PLEX Linux installation](https://support.plex.tv/articles/200288586-installation/)<br>
-[For more about CIFS mount](http://midactstech.blogspot.cz/2013/09/how-to-mount-windows-cifs-share-on_18.html)<br>
-[How to Install Plex Media Server on Ubuntu](https://www.linuxbabe.com/ubuntu/install-plex-media-server-ubuntu-18-04)
+[READ ME FIRST: About Server ARMv7 and ARMv8 Ubuntu / Debian](https://forums.plex.tv/t/read-me-first-about-server-armv7-and-armv8-ubuntu-debian/226567)  
+[PLEX Linux installation](https://support.plex.tv/articles/200288586-installation/)  
+[For more about CIFS mount](http://midactstech.blogspot.cz/2013/09/how-to-mount-windows-cifs-share-on_18.html)  
+[How to Install Plex Media Server on Ubuntu](https://www.linuxbabe.com/ubuntu/install-plex-media-server-ubuntu-18-04)  
+[Enable repository updating for supported Linux server distributions](https://support.plex.tv/articles/235974187-enable-repository-updating-for-supported-linux-server-distributions/)
