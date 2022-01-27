@@ -244,7 +244,7 @@ Place it to some location, e.g., `/root/installUpdate.sh`.
 In terminal, execute these commands:
 
 ```bash
-apt-get install cron
+apt-get install cron -y
 chmod +x /root/installUpdate.sh
 crontab -e
 ```
