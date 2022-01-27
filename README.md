@@ -228,6 +228,35 @@ After, you will be able to update your Plex media server just by running
 apt-get update
 ```
 
+## Automated updates via cron
+
+Create a shell script with following commands:
+
+```bash
+export PATH="$PATH:/usr/local/sbin"
+apt-get update
+apt-get upgrade -y
+apt-get autoclean
+```
+
+Place it to some location, e.g., `/root/installUpdate.sh`.
+
+In terminal, execute these commands:
+
+```bash
+apt-get install cron
+chmod +x /root/installUpdate.sh
+crontab -e
+```
+
+Insert a following line of code:
+
+```bash
+44 4 * * * /root/installUpdate.sh >> /var/log/plexupdatejob.log 2>&1
+```
+
+This will execute the script every single day at 04:44.
+
 ## Links & Credits
 
 [READ ME FIRST: About Server ARMv7 and ARMv8 Ubuntu / Debian](https://forums.plex.tv/t/read-me-first-about-server-armv7-and-armv8-ubuntu-debian/226567)  
