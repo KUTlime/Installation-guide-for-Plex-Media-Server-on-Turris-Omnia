@@ -233,7 +233,7 @@ apt-get update
 Create a shell script with following commands:
 
 ```bash
-export PATH="$PATH:/usr/local/sbin"
+export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 apt-get update
 apt-get upgrade -y
 apt-get autoclean
