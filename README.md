@@ -257,6 +257,26 @@ Insert a following line of code:
 
 This will execute the script every single day at 04:44.
 
+## Auto start after router reboot
+
+You can either use `nano` to edit `/etc/config/lxc-auto` file, or edit the file directly via WinSCP or TotalCommander + SFTP plugin.
+
+For `nano` execute
+
+```bash
+nano /etc/config/lxc-auto
+```
+
+and in both cases insert
+
+```
+config container
+        option name PLEX
+        option timeout 60
+```
+
+Save & exit. Done.
+
 ## Links & Credits
 
 [READ ME FIRST: About Server ARMv7 and ARMv8 Ubuntu / Debian](https://forums.plex.tv/t/read-me-first-about-server-armv7-and-armv8-ubuntu-debian/226567)  
