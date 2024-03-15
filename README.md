@@ -175,6 +175,20 @@ cd /media/plex  && ls
 
 You should see your files or/and directories for PLEX.
 
+Secure re-mounting by a cron command:
+
+```bash
+crontab -e
+```
+
+and inserting this line:
+
+```bash
+55 5 * * * mount -a
+```
+
+This will execute the mount command every single day at 05:55.
+
 ## 6. PLEX server configuration
 
 Find IP address of your LXC container and write down this IP:
