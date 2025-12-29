@@ -7,16 +7,16 @@
 The installation consists of these steps:
 
 1. Configure NAS
-2. Create Debian LXC container
+2. Create a Debian LXC container
 3. Simple Debian configuration
 4. Install Plex Media Server
 5. Connect to CIFS
 
 ## 1. Configure NAS
 
-Follow [the official tutorial](https://wiki.turris.cz/doc/en/howto/nas) to configure NAS at your Turris Omnia. This tutorial is using NAS path configuration as `\\TURRIS\nas` or using IP form `\\192.168.1.1\nas`.
+Follow [the official tutorial](https://wiki.turris.cz/doc/en/howto/nas) to configure NAS on your Turris Omnia. This tutorial is using NAS path configuration as `\\TURRIS\nas` or using IP form `\\192.168.1.1\nas`.
 
-## 2. Create Debian LXC container
+## 2. Create a Debian LXC container
 
 Connect to your Turris Omnia router by SSH and create the LXC container. **[Official Manual](https://www.turris.cz/doc/en/howto/lxc)**
 
@@ -36,7 +36,7 @@ Start the container from LuCI or by executing this command:
 lxc-start -n PLEX
 ```
 
-Connect to container from a console:
+Connect to the container from a console:
 
 ```bash
 lxc-attach -n PLEX
@@ -49,15 +49,15 @@ apt-get update
 apt-get install sudo nano wget git-core openssh-server rsync sudo fakeroot cifs-utils -y
 ```
 
-Change hostname (for eg. `PLEX`):
+Change hostname (e.g., `PLEX`):
 
 ```bash
 nano /etc/hostname
 ```
 
-Save file by hitting CTRL+X in nano editor.
+Save the file by hitting CTRL+X in the nano editor.
 
-Set new hostname to localhost:
+Set the new hostname to localhost:
 
 ```bash
 nano /etc/hosts
@@ -69,9 +69,9 @@ Add this line (for `PLEX` as hostname):
 127.0.1.1   PLEX
 ```
 
-Exit the attached container simply by typing `exit`. For the next step, you should be your Turris as admin in your console.
+Exit the attached container simply by typing `exit`. For the next step, you should be your Turris as an admin in your console.
 
-Reboot the LXC container from LuCI interface or execute this command:
+Reboot the LXC container from the LuCI interface or execute this command:
 
 ```bash
 lxc-stop -n PLEX -r
@@ -79,13 +79,13 @@ lxc-stop -n PLEX -r
 
 ## 4. Install Plex Media Server
 
-Connect to container again. From a console attached to Turris, you can execute command:
+Connect to the container again. From a console attached to Turris, you can execute the command:
 
 ```bash
 lxc-attach -n PLEX
 ```
 
-Go to [PLEX Server download page](https://www.plex.tv/media-server-downloads/) and copy the latest installation package for Ubuntu/Debian (8+) ARMv7 package or just copy/paste the command below (_the latest version in time of writting this commit_).
+Go to [PLEX Server download page](https://www.plex.tv/media-server-downloads/) and copy the latest installation package for Ubuntu/Debian (8+) ARMv7 package, or just copy/paste the command below (_the latest version at the time of writing this commit_).
 
 ![Preview](https://raw.githubusercontent.com/KUTlime/Installation-guide-for-Plex-Media-Server-on-Turris-Omnia/master/OfficialRepo.png)
 
@@ -113,13 +113,13 @@ Write down `plex` user id (`uid`):
 id -u plex
 ```
 
-Create empty folder for mount:
+Create an empty folder for the mount:
 
 ```bash
 mkdir -p /media/plex
 ```
 
-Add mount to `/etc/fstab` by editing file in the `nano` editor:
+Add mount to `/etc/fstab` by editing the file in the `nano` editor:
 
 ```bash
 nano /etc/fstab
@@ -137,13 +137,13 @@ For Turris Omnia OS 5.1.x with Samba4, use this command:
 //192.168.1.1/nas /media/plex cifs uid=999,vers=2.0,gid=1000,credentials=/etc/.cifspasswd,iocharset=utf8 0 0
 ```
 
-For an automatic mount without any password prompt, try execute this:
+For an automatic mount without any password prompt, try executing this:
 
 ```bash
 nano /etc/.cifspasswd
 ```
 
-Add write your credentials to the file:
+Add your credentials to the file:
 
 ```bash
 username=SAMBA_USER_NAME
@@ -159,9 +159,9 @@ password=YOUR_TURRIS_ROOT_PASSWORD
 
 Save and exit the `/etc/.cifspasswd` file.
 
-Alternatively, you can create the `/etc/.cifspasswd` file by WinSCP.
+Alternatively, you can create the `/etc/.cifspasswd` file using WinSCP.
 
-Execute following command:
+Execute the following command:
 
 ```bash
 mount -all
@@ -173,7 +173,7 @@ Verify the mount by:
 cd /media/plex  && ls
 ```
 
-You should see your files or/and directories for PLEX.
+You should see your files or/and/or directories for PLEX.
 
 Secure re-mounting by a cron command:
 
@@ -191,14 +191,14 @@ This will execute the mount command every single day at 05:55.
 
 ## 6. PLEX server configuration
 
-Find IP address of your LXC container and write down this IP:
+Find the IP address of your LXC container and write down this IP:
 
 ```bash
 ip a
 ```
 
 The output is messy, so look for a valid LAN IP with `inet` at the beginning.<br>
-Alternatively, you can find the IP in the your DHCP in LuCI.
+Alternatively, you can find the IP in your DHCP in LuCI.
 
 You can check the PLEX server status by:
 
@@ -206,7 +206,7 @@ You can check the PLEX server status by:
 systemctl status plexmediaserver
 ```
 
-If PLEX media server is running, close the console. We are done here.<br>
+If the PLEX media server is running, close the console. We are done here.<br>
 Otherwise, you can start the service with:
 
 ```bash
@@ -215,11 +215,11 @@ systemctl start plexmediaserver
 
 Once the PLEX server is running, visit the webpage http://192.168.1.100:32400/manage (*substitute the IP with the IP of the LXC container*) and create the libraries. If this webpage is doesn't work, try http://192.168.1.100:32400/web/index.html.
 
-Congratulation, you have your PLEX media server up and running on Turris Omnia device.
+Congratulations, you have your PLEX media server up and running on a Turris Omnia device.
 
 ## Enable repository updating
 
-To enable an easy update of Plex media server, you have to add Plex official repository to your container. Start with installing prerequisites with:
+To enable an easy update of the Plex media server, you have to add the Plex repository to your container. Start by installing prerequisites with:
 
 ```bash
 apt-get install curl apt-transport-https
@@ -244,7 +244,7 @@ apt-get update
 
 ## Automated updates via cron
 
-Create a shell script with following commands:
+Create a shell script with the following commands:
 
 ```bash
 export PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
@@ -255,7 +255,7 @@ apt-get autoclean
 
 Place it to some location, e.g., `/root/installUpdate.sh`.
 
-In terminal, execute these commands:
+In the terminal, execute these commands:
 
 ```bash
 apt-get install cron -y
@@ -263,7 +263,7 @@ chmod +x /root/installUpdate.sh
 crontab -e
 ```
 
-Insert a following line of code:
+Insert the following line of code:
 
 ```bash
 44 4 * * * /root/installUpdate.sh >> /var/log/plexupdatejob.log 2>&1
