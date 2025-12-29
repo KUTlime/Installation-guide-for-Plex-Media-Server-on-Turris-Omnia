@@ -105,7 +105,38 @@ Fix for automatic start:
 touch /usr/lib/plexmediaserver/start.sh
 ```
 
-## 5. Connect to CIFS
+## 5. Mount media library
+
+Edit the container configuration in
+
+```bash
+/srv/lxc/<container_name>/config
+```
+and these lines at the end of the file
+
+```bash
+# Custom
+lxc.mount.entry = /mnt/nas media/plex none bind,ro,create=dir 0 0
+```
+
+You can also do it at the web interface of LuCI.
+
+Restart your container by
+
+```bash
+lxc-stop -n PLEX -r
+```
+and verify the auto mount by
+
+```bash
+lxc-attach -n PLEX
+ls /media/plex
+```
+You should see the content of your media library.
+
+## 6. Connect to CIFS (_a fallback method within the container_)
+
+**Important:** Do this if the LXC mount from the host doesn't work.
 
 Write down `plex` user id (`uid`):
 
