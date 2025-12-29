@@ -116,8 +116,9 @@ and these lines at the end of the file
 
 ```bash
 # Custom
-lxc.mount.entry = /mnt/nas media/plex none bind,ro,create=dir 0 0
+lxc.mount.entry = /mnt/nas/finished media/plex none bind,ro,create=dir 0 0
 ```
+The first path is your Turris Omnia host path to the media content that you want to mount to the container.
 
 You can also do it at the web interface of LuCI.
 
