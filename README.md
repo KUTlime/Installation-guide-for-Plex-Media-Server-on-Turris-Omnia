@@ -119,7 +119,7 @@ Create an empty folder for the mount:
 mkdir -p /media/plex
 ```
 
-Add mount to `/etc/fstab` by editing the file in the `nano` editor:
+Add a mount to `/etc/fstab` by editing the file in the `nano` editor:
 
 ```bash
 nano /etc/fstab
@@ -187,7 +187,7 @@ and inserting this line:
 55 5 * * * mount -a
 ```
 
-This will execute the mount command every single day at 05:55.
+This will execute the mount command daily at 05:55.
 
 ## 6. PLEX server configuration
 
@@ -253,7 +253,7 @@ apt-get upgrade -y
 apt-get autoclean
 ```
 
-Place it to some location, e.g., `/root/installUpdate.sh`.
+Place it in a suitable location, e.g., `/root/installUpdate.sh`.
 
 In the terminal, execute these commands:
 
@@ -269,11 +269,11 @@ Insert the following line of code:
 44 4 * * * /root/installUpdate.sh >> /var/log/plexupdatejob.log 2>&1
 ```
 
-This will execute the script every single day at 04:44.
+This will execute the script daily at 04:44.
 
 ## Auto start after router reboot
 
-You can either use `nano` to edit `/etc/config/lxc-auto` file, or edit the file directly via WinSCP or TotalCommander + SFTP plugin.
+You can either use `nano` to edit the `/etc/config/lxc-auto` file, or edit the file directly via WinSCP or TotalCommander + SFTP plugin.
 
 For `nano` execute
 
